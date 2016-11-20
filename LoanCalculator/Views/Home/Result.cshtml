@@ -7,5 +7,12 @@
 <h2>Result</h2>
 
 <div>
-    @Model.monthlyRepayment
+    @Model.MonthlyRepayment.ToString("c")
+</div>
+<div>
+    @for(; Model.Amount > 0; Model.TermInMonths--)
+    {
+        Model.MonthlyTransaction();
+        <p>@Model.Amount.ToString("c")</p>
+    }
 </div>

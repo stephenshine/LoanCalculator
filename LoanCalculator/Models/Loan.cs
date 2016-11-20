@@ -12,9 +12,19 @@ namespace LoanCalculator.Models
         public double TermInMonths { get; set; }
         public double MonthylyInterestRate { get { return (APR / 12) / 100; } }
 
-        public double monthlyRepayment { get { return this.CalculateRepayment(); } }
+        public double MonthlyRepayment { get; set; }
 
-        private double CalculateRepayment()
+        public void MonthlyTransaction()
+        {
+            Amount += (Amount * MonthylyInterestRate);
+            if (MonthlyRepayment > Amount)
+            {
+                MonthlyRepayment = Amount;
+            }
+            Amount -= MonthlyRepayment;
+        }
+
+        public void CalculateMonthlyRepayment()
         {
             double payment = 0;
             double power = Math.Pow((1 + MonthylyInterestRate), (TermInMonths * -1));
@@ -22,7 +32,7 @@ namespace LoanCalculator.Models
             double numerator = Amount * (MonthylyInterestRate);
             payment = numerator / denominator;
 
-            return payment;
+            MonthlyRepayment = payment;
         }
     }
 }
