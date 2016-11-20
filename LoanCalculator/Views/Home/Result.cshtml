@@ -10,13 +10,24 @@
     @Model.MonthlyRepayment.ToString("c")
 </div>
 <div>
-    @foreach(var t in Model.Transactions)
-    {
-        <p>@t.TransactionID</p>
-        <p>@t.StartingBalance.ToString("c")</p>
-        <p>@t.Debit.ToString("c")</p>
-        <p>@t.Credit.ToString("c")</p>
-        <p>@t.ClosingBalance.ToString("c")</p>
-        <hr />
-    }
+    <table class="table">
+        <tr>
+            <th>Month</th>
+            <th>Starting balance</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>Closing balance</th>
+        </tr>
+
+        @foreach (var t in Model.Transactions)
+            {
+            <tr>
+                <td>@t.TransactionID</td>
+                <td>@t.StartingBalance.ToString("c")</td>
+                <td>@t.Debit.ToString("c")</td>
+                <td>@t.Credit.ToString("c")</td>
+                <td>@t.ClosingBalance.ToString("c")</td>
+            </tr>
+            }
+    </table>
 </div>
