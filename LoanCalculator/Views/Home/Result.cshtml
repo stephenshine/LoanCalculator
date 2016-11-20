@@ -21,15 +21,9 @@
             <th>Closing balance</th>
         </tr>
 
-        @foreach (var t in Model.Transactions)
+        @foreach (var transaction in Model.Transactions)
             {
-            <tr>
-                <td>@t.TransactionID</td>
-                <td>@t.StartingBalance.ToString("c")</td>
-                <td>@t.Debit.ToString("c")</td>
-                <td>@t.Credit.ToString("c")</td>
-                <td>@t.ClosingBalance.ToString("c")</td>
-            </tr>
+                Html.RenderPartial("_Transaction", transaction);
             }
     </table>
 </div>

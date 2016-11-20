@@ -16,7 +16,7 @@ namespace LoanCalculator.Models
         public double TotalInterest { get; set; }
         public double TotalRepaid { get; set; }
 
-        public void CalculateTotalInterest()
+        private void CalculateTotalInterest()
         {
             foreach(Transaction t in Transactions)
             {
@@ -24,7 +24,7 @@ namespace LoanCalculator.Models
             }
         }
 
-        public void CalculateTotalAmountRepid()
+        private void CalculateTotalAmountRepid()
         {
             foreach(Transaction t in Transactions)
             {

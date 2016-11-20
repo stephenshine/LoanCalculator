@@ -1,0 +1,9 @@
+﻿@model LoanCalculator.Models.Transaction
+
+<tr>
+    <td>@Model.TransactionID</td>
+    <td>@Model.StartingBalance.ToString("c")</td>
+    <td>@Model.Debit.ToString("c")</td>
+    <td>@Model.Credit.ToString("c")</td>
+    <td>@Model.ClosingBalance.ToString("c")</td>
+</tr>
