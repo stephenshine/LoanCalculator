@@ -36,14 +36,14 @@ namespace LoanCalculator.Models
             List<Transaction> transactions = new List<Transaction>();
             for(int i = 1; Amount > 0 ; i++)
             {
+                Transaction transaction = new Transaction(i, Amount);
+                transaction.Debit = CalculateMonthlyInterest();
                 MonthlyTransaction();
-                transactions.Add(new Transaction
-                {
-                    TransactionID = i,
-                    Balance = Amount,
-                    Debit = CalculateMonthlyInterest(),
-                    Credit = MonthlyRepayment
-                });
+
+                transaction.ClosingBalance = Amount;
+                transaction.Credit = MonthlyRepayment;
+
+                transactions.Add(transaction);
             }
             Transactions = transactions;
         }

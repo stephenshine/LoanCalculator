@@ -13,9 +13,10 @@
     @foreach(var t in Model.Transactions)
     {
         <p>@t.TransactionID</p>
-        <p>@t.Balance.ToString("c")</p>
+        <p>@t.StartingBalance.ToString("c")</p>
         <p>@t.Debit.ToString("c")</p>
         <p>@t.Credit.ToString("c")</p>
+        <p>@t.ClosingBalance.ToString("c")</p>
         <hr />
     }
 </div>
