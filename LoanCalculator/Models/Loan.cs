@@ -14,14 +14,38 @@ namespace LoanCalculator.Models
 
         public double MonthlyRepayment { get; set; }
 
+        public List<Transaction> Transactions { get; set; }
+
         public void MonthlyTransaction()
         {
-            Amount += (Amount * MonthylyInterestRate);
+            Amount += CalculateMonthlyInterest();
             if (MonthlyRepayment > Amount)
             {
                 MonthlyRepayment = Amount;
             }
             Amount -= MonthlyRepayment;
+        }
+
+        private double CalculateMonthlyInterest()
+        {
+            return Amount * MonthylyInterestRate;
+        }
+
+        public void RepayLoan()
+        {
+            List<Transaction> transactions = new List<Transaction>();
+            for(int i = 1; Amount > 0 ; i++)
+            {
+                MonthlyTransaction();
+                transactions.Add(new Transaction
+                {
+                    TransactionID = i,
+                    Balance = Amount,
+                    Debit = CalculateMonthlyInterest(),
+                    Credit = MonthlyRepayment
+                });
+            }
+            Transactions = transactions;
         }
 
         public void CalculateMonthlyRepayment()

@@ -10,9 +10,12 @@
     @Model.MonthlyRepayment.ToString("c")
 </div>
 <div>
-    @for(; Model.Amount > 0; Model.TermInMonths--)
+    @foreach(var t in Model.Transactions)
     {
-        Model.MonthlyTransaction();
-        <p>@Model.Amount.ToString("c")</p>
+        <p>@t.TransactionID</p>
+        <p>@t.Balance.ToString("c")</p>
+        <p>@t.Debit.ToString("c")</p>
+        <p>@t.Credit.ToString("c")</p>
+        <hr />
     }
 </div>
