@@ -14,5 +14,10 @@ namespace LoanCalculator.Controllers
             return View();
         }
 
+        public ActionResult Result([Bind(Include = "Amount,APR,termInMonths")]Loan loan)
+        {
+            return View(loan);
+        }
+
     }
 }
