@@ -16,7 +16,6 @@ namespace LoanCalculator.Controllers
 
         public ActionResult Result([Bind(Include = "Amount,APR,termInMonths")]Loan loan)
         {
-            loan.CalculateMonthlyRepayment();
             loan.RepayLoan();
             return View(loan);
         }

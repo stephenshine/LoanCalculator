@@ -11,10 +11,26 @@ namespace LoanCalculator.Models
         public double APR { get; set; }
         public double TermInMonths { get; set; }
         public double MonthylyInterestRate { get { return (APR / 12) / 100; } }
-
         public double MonthlyRepayment { get; set; }
-
         public List<Transaction> Transactions { get; set; }
+        public double TotalInterest { get; set; }
+        public double TotalRepaid { get; set; }
+
+        public void CalculateTotalInterest()
+        {
+            foreach(Transaction t in Transactions)
+            {
+                TotalInterest += t.Debit;
+            }
+        }
+
+        public void CalculateTotalAmountRepid()
+        {
+            foreach(Transaction t in Transactions)
+            {
+                TotalRepaid += t.Credit;
+            }
+        }
 
         public void MonthlyTransaction()
         {
@@ -34,7 +50,8 @@ namespace LoanCalculator.Models
         public void RepayLoan()
         {
             List<Transaction> transactions = new List<Transaction>();
-            for(int i = 1; Amount > 0 ; i++)
+            CalculateMonthlyRepayment();
+            for (int i = 1; Amount > 0 ; i++)
             {
                 Transaction transaction = new Transaction(i, Amount);
                 transaction.Debit = CalculateMonthlyInterest();
@@ -46,6 +63,8 @@ namespace LoanCalculator.Models
                 transactions.Add(transaction);
             }
             Transactions = transactions;
+            CalculateTotalInterest();
+            CalculateTotalAmountRepid();
         }
 
         public void CalculateMonthlyRepayment()
