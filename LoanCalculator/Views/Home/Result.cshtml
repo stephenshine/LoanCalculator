@@ -4,13 +4,12 @@
     ViewBag.Title = "Result";
 }
 
-<h2>Result</h2>
-
 <div class="jumbotron">
     @Model.MonthlyRepayment.ToString("c")
     @Model.TotalInterest.ToString("c")
     @Model.TotalRepaid.ToString("c")
 </div>
+
 <div>
     <table class="table">
         <tr>

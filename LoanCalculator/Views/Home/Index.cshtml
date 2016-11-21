@@ -2,12 +2,16 @@
 
 @{
     ViewBag.Title = "Index";
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "tableBody"
+    };
 }
 
 <h2>Index</h2>
 
 
-@using (Html.BeginForm("Result", "Home"))
+@using (Ajax.BeginForm("Result", ajaxOpts))
 {
     @Html.AntiForgeryToken()
     
@@ -47,6 +51,6 @@
     </div>
 }
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div id="tableBody">
+    @Html.Action("Result", new { loan = Model })
+</div>

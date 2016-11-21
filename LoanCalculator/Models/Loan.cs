@@ -7,6 +7,13 @@ namespace LoanCalculator.Models
 {
     public class Loan
     {
+        public Loan(double amount, double apr, double term)
+        {
+            Amount = amount;
+            APR = apr;
+            TermInMonths = term;
+        }
+
         public double Amount { get; set; }
         public double APR { get; set; }
         public double TermInMonths { get; set; }
