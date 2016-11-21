@@ -49,7 +49,7 @@ namespace LoanCalculator.Models
             OutstandingBalance = Amount;
 
             // i will be the transaction id, keep looping while there's an outstanding balance
-            for (int i = 1; OutstandingBalance > 0 ; i++)
+            for (int i = 1; OutstandingBalance > 0.5d ; i++)
             {
                 // calculate the monthly interest before the transaction
                 double interest = CalculateMonthlyInterest();
@@ -59,10 +59,10 @@ namespace LoanCalculator.Models
 
                 // debit for the transaction is the monthly interest
                 transaction.Debit = interest;
-
+                OutstandingBalance = Math.Round((OutstandingBalance + interest), 2);
                 // check if the monthly repayment is more than outstanding balance
                 // if it is, set the monthly repayment amount to be the outstanding balance
-                if(OutstandingBalance < MonthlyRepayment)
+                if (OutstandingBalance <= MonthlyRepayment)
                 {
                     transaction.Credit = OutstandingBalance;
                 }
@@ -73,8 +73,8 @@ namespace LoanCalculator.Models
 
                 // reduce balance by monthly repayment
                 // then increase by interest
-                OutstandingBalance -= MonthlyRepayment;
-                OutstandingBalance += interest;
+                //OutstandingBalance += interest;
+                OutstandingBalance = Math.Round((OutstandingBalance - MonthlyRepayment), 2);
                 transaction.ClosingBalance = OutstandingBalance;
 
                 // add the whole transaction to the list
@@ -95,7 +95,7 @@ namespace LoanCalculator.Models
             double numerator = Amount * (MonthylyInterestRate);
             payment = numerator / denominator;
 
-            MonthlyRepayment = payment;
+            MonthlyRepayment = Math.Round(payment, 2);
         }
     }
 }
