@@ -7,22 +7,22 @@ namespace LoanCalculator.Models
 {
     public class Loan
     {
-        public Loan(double amount, double apr, double term)
+        public Loan(decimal amount, decimal apr, int term)
         {
             Amount = amount;
             APR = apr;
             TermInMonths = term;
         }
 
-        public double Amount { get; set; }
-        public double APR { get; set; }
-        public double TermInMonths { get; set; }
-        public double MonthlyRepayment { get; set; }
+        public decimal Amount { get; set; }
+        public decimal APR { get; set; }
+        public int TermInMonths { get; set; }
+        public decimal MonthlyRepayment { get; set; }
         public List<Transaction> Transactions { get; set; }
-        public double TotalInterest { get; set; }
-        public double TotalRepaid { get; set; }
-        private double OutstandingBalance { get; set; }
-        private double MonthylyInterestRate { get { return (APR / 12) / 100; } }
+        public decimal TotalInterest { get; set; }
+        public decimal TotalRepaid { get; set; }
+        private decimal OutstandingBalance { get; set; }
+        private decimal MonthylyInterestRate { get { return (APR / 12) / 100; } }
 
         private void CalculateTotalInterest()
         {
@@ -41,7 +41,7 @@ namespace LoanCalculator.Models
         }
 
 
-        private double CalculateMonthlyInterest()
+        private decimal CalculateMonthlyInterest()
         {
             return OutstandingBalance * MonthylyInterestRate;
         }
@@ -56,33 +56,41 @@ namespace LoanCalculator.Models
             OutstandingBalance = Amount;
 
             // i will be the transaction id, keep looping while there's an outstanding balance
-            for (int i = 1; OutstandingBalance > 0.5d ; i++)
+            for (int i = 1; OutstandingBalance > 0.5m ; i++)
             {
-                // calculate the monthly interest before the transaction
-                double interest = CalculateMonthlyInterest();
-            
+
+                decimal interest = 0;
                 // create a new transaction - (id, StartingBalance)
                 Transaction transaction = new Transaction(i, OutstandingBalance);
 
-                // debit for the transaction is the monthly interest
-                transaction.Debit = interest;
-                OutstandingBalance = Math.Round((OutstandingBalance + interest), 2);
                 // check if the monthly repayment is more than outstanding balance
                 // if it is, set the monthly repayment amount to be the outstanding balance
-                if (OutstandingBalance <= MonthlyRepayment)
+                if (OutstandingBalance < MonthlyRepayment)
                 {
-                    transaction.Credit = OutstandingBalance;
+
+                    MonthlyRepayment = OutstandingBalance;
                 }
-                else
-                {
-                    transaction.Credit = MonthlyRepayment;
-                }
+                transaction.Credit = MonthlyRepayment;
+
 
                 // reduce balance by monthly repayment
                 // then increase by interest
                 //OutstandingBalance += interest;
                 OutstandingBalance = Math.Round((OutstandingBalance - MonthlyRepayment), 2);
                 transaction.ClosingBalance = OutstandingBalance;
+
+                if (OutstandingBalance > 0)
+                {
+                    // calculate the monthly interest before the transaction
+                    interest = CalculateMonthlyInterest();
+                    // debit for the transaction is the monthly interest
+                    transaction.Debit = interest;
+                    OutstandingBalance = Math.Round((OutstandingBalance + interest), 2);
+                }
+                else
+                {
+                    transaction.Debit = interest;
+                }
 
                 // add the whole transaction to the list
                 transactions.Add(transaction);
@@ -96,10 +104,10 @@ namespace LoanCalculator.Models
 
         public void CalculateMonthlyRepayment()
         {
-            double payment = 0;
-            double power = Math.Pow((1 + MonthylyInterestRate), (TermInMonths * -1));
-            double denominator = 1 - power;
-            double numerator = Amount * (MonthylyInterestRate);
+            decimal payment = 0;
+            decimal power = (decimal)Math.Pow((double)(1 + MonthylyInterestRate), (TermInMonths * -1));
+            decimal denominator = 1 - power;
+            decimal numerator = Amount * MonthylyInterestRate;
             payment = numerator / denominator;
 
             MonthlyRepayment = Math.Round(payment, 2);

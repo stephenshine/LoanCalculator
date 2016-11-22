@@ -14,11 +14,13 @@ namespace LoanCalculator.Controllers
             return View();
         }
 
-        public PartialViewResult Result(double Amount = 0, double APR = 0, double TermInMonths = 0)
+        public PartialViewResult Result(decimal Amount = 0, decimal APR = 0, int TermInMonths = 0)
         {
             Loan loan = new Loan(Amount, APR, TermInMonths);
-
-            loan.RepayLoan();
+            if (loan.APR != 0)
+            {
+                loan.RepayLoan();
+            }
             
             return PartialView(loan);
         }

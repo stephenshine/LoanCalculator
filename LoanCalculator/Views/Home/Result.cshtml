@@ -10,19 +10,22 @@
     @Model.TotalRepaid.ToString("c")
 </div>
 
-<div>
-    <table class="table">
-        <tr>
-            <th>Month</th>
-            <th>Starting balance</th>
-            <th>Debit</th>
-            <th>Credit</th>
-            <th>Closing balance</th>
-        </tr>
+@if (Model.APR != 0)
+{
+    <div>
+        <table class="table">
+            <tr>
+                <th>Month</th>
+                <th>Starting balance</th>
+                <th>Debit</th>
+                <th>Credit</th>
+                <th>Closing balance</th>
+            </tr>
 
-        @foreach (var transaction in Model.Transactions)
+            @foreach (var transaction in Model.Transactions)
             {
                 Html.RenderPartial("_Transaction", transaction);
             }
-    </table>
-</div>
+        </table>
+    </div>
+}

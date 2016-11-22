@@ -8,13 +8,13 @@ namespace LoanCalculator.Models
     public class Transaction
     {
         public int TransactionID { get; set; }
-        public double StartingBalance { get; set; }
-        public double ClosingBalance { get; set; }
-        public double Debit { get; set; }
-        public double Credit { get; set; }
+        public decimal StartingBalance { get; set; }
+        public decimal ClosingBalance { get; set; }
+        public decimal Debit { get; set; }
+        public decimal Credit { get; set; }
 
         public Transaction() { }
-        public Transaction(int id, double balance)
+        public Transaction(int id, decimal balance)
         {
             TransactionID = id;
             StartingBalance = balance;
