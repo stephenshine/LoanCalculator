@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,9 +15,14 @@ namespace LoanCalculator.Models
             TermInMonths = term;
         }
 
+        #region inputs
+        [DataType(DataType.Currency)]
         public decimal Amount { get; set; }
         public decimal APR { get; set; }
+        [Display(Name = "Term in months")]
         public int TermInMonths { get; set; }
+        #endregion inputs
+
         public decimal MonthlyRepayment { get; set; }
         public List<Transaction> Transactions { get; set; }
         public decimal TotalInterest { get; set; }
@@ -24,6 +30,7 @@ namespace LoanCalculator.Models
         private decimal OutstandingBalance { get; set; }
         private decimal MonthylyInterestRate { get { return (APR / 12) / 100; } }
 
+        #region private methods
         private void CalculateTotalInterest()
         {
             foreach(Transaction t in Transactions)
@@ -40,11 +47,22 @@ namespace LoanCalculator.Models
             }
         }
 
-
         private decimal CalculateMonthlyInterest()
         {
             return OutstandingBalance * MonthylyInterestRate;
         }
+
+        private void CalculateMonthlyRepayment()
+        {
+            decimal payment = 0;
+            decimal power = (decimal)Math.Pow((double)(1 + MonthylyInterestRate), (TermInMonths * -1));
+            decimal denominator = 1 - power;
+            decimal numerator = Amount * MonthylyInterestRate;
+            payment = numerator / denominator;
+
+            MonthlyRepayment = Math.Round(payment, 2);
+        }
+        #endregion private methods
 
         public void RepayLoan()
         {
@@ -82,15 +100,5 @@ namespace LoanCalculator.Models
             CalculateTotalAmountRepid();
         }
 
-        public void CalculateMonthlyRepayment()
-        {
-            decimal payment = 0;
-            decimal power = (decimal)Math.Pow((double)(1 + MonthylyInterestRate), (TermInMonths * -1));
-            decimal denominator = 1 - power;
-            decimal numerator = Amount * MonthylyInterestRate;
-            payment = numerator / denominator;
-
-            MonthlyRepayment = Math.Round(payment, 2);
-        }
     }
 }
