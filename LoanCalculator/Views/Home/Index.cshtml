@@ -1,14 +1,16 @@
 ﻿@model LoanCalculator.Models.Loan
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Loan Calculator";
     AjaxOptions ajaxOpts = new AjaxOptions
     {
-        UpdateTargetId = "tableBody"
+        UpdateTargetId = "transactions"
     };
 }
 
-<h2>Index</h2>
+<div class="jumbotron text-center">
+    <h1>@ViewBag.Title</h1>
+</div>
 
 <div class="row">
     <div class="col-lg-6">
@@ -17,8 +19,6 @@
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
-                <h4>Loan</h4>
-                <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -57,6 +57,6 @@
     </div>
 </div>
 
-<div id="tableBody">
+<div id="transactions">
     @Html.Action("Result", new { loan = Model })
 </div>
