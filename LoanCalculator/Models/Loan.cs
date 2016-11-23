@@ -48,55 +48,35 @@ namespace LoanCalculator.Models
 
         public void RepayLoan()
         {
-            // new list of transactions will store information about each repayment
             List<Transaction> transactions = new List<Transaction>();
-
-            // calcualte the monthly repayment first
-            CalculateMonthlyRepayment();
+            decimal interest = 0;
             OutstandingBalance = Amount;
+            CalculateMonthlyRepayment();
 
-            // i will be the transaction id, keep looping while there's an outstanding balance
-            for (int i = 1; OutstandingBalance > 0.5m ; i++)
+            for (int i = 1; i <= TermInMonths; i++)
             {
 
-                decimal interest = 0;
-                // create a new transaction - (id, StartingBalance)
                 Transaction transaction = new Transaction(i, OutstandingBalance);
 
-                // check if the monthly repayment is more than outstanding balance
-                // if it is, set the monthly repayment amount to be the outstanding balance
-                if (OutstandingBalance < MonthlyRepayment)
-                {
+                interest = CalculateMonthlyInterest();
 
+                transaction.Debit = interest;
+                OutstandingBalance += interest;
+
+                if (i == TermInMonths)
+                {
                     MonthlyRepayment = OutstandingBalance;
                 }
                 transaction.Credit = MonthlyRepayment;
 
-
-                // reduce balance by monthly repayment
-                // then increase by interest
-                //OutstandingBalance += interest;
-                OutstandingBalance = Math.Round((OutstandingBalance - MonthlyRepayment), 2);
+                OutstandingBalance -= MonthlyRepayment;
                 transaction.ClosingBalance = OutstandingBalance;
 
-                if (OutstandingBalance > 0)
-                {
-                    // calculate the monthly interest before the transaction
-                    interest = CalculateMonthlyInterest();
-                    // debit for the transaction is the monthly interest
-                    transaction.Debit = interest;
-                    OutstandingBalance = Math.Round((OutstandingBalance + interest), 2);
-                }
-                else
-                {
-                    transaction.Debit = interest;
-                }
 
-                // add the whole transaction to the list
                 transactions.Add(transaction);
+
             }
 
-            // copy list of transactions to transaction property
             Transactions = transactions;
             CalculateTotalInterest();
             CalculateTotalAmountRepid();
