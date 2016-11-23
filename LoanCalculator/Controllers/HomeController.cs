@@ -9,6 +9,11 @@ namespace LoanCalculator.Controllers
 {
     public class HomeController : Controller
     {
+        public ActionResult Test()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();
