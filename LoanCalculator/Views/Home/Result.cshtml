@@ -23,10 +23,17 @@
     });
 }
 
-<div class="jumbotron">
-    @Model.MonthlyRepayment.ToString("c")
-    @Model.TotalInterest.ToString("c")
-    @Model.TotalRepaid.ToString("c")
+<div class="row">
+    <h2>Information about loan</h2>
+    <div class="col-md-4">
+        <h3>Monthly repayment: @Model.MonthlyRepayment.ToString("c")</h3>
+    </div>
+    <div class="col-md-4">
+        <h3>Total interest: @Model.TotalInterest.ToString("c")</h3>
+    </div>
+    <div class="col-md-4">
+        <h3>Total amount to repay: @Model.TotalRepaid.ToString("c")</h3>
+    </div>
 </div>
 
 @if (Model.APR != 0)
