@@ -1,7 +1,26 @@
 ﻿@model LoanCalculator.Models.Loan
+@using Chart.Mvc.ComplexChart;
+@using Chart.Mvc.SimpleChart;
+@using Chart.Mvc.Extensions
 
 @{
-    ViewBag.Title = "Result";
+
+    var pieChart = new PieChart();
+    pieChart.Data.AddRange(new List<SimpleData>
+    {
+        new SimpleData
+        {
+            Value = (double)Math.Round(Model.TotalInterest, 2),
+            Label = "Interest: £",
+            Color = "rgba(220, 0, 0, 0.5)",
+        },
+        new SimpleData
+        {
+            Value = (double)Math.Round(Model.Amount, 2),
+            Label = "Capital: £",
+            Color = "rgba(0, 220, 0, 0.5)"
+        }
+    });
 }
 
 <div class="jumbotron">
@@ -29,3 +48,5 @@
         </table>
     </div>
 }
+
+@Html.CreateChart("results", pieChart)
