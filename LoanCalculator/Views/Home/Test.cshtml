@@ -1,7 +1,25 @@
 ﻿@using Chart.Mvc.ComplexChart;
+@using Chart.Mvc.SimpleChart;
 @using Chart.Mvc.Extensions
 @{
-    var barChart = new BarChart();
+    var pieChart = new PieChart();
+    pieChart.Data.AddRange(new List<SimpleData>
+    {
+        new SimpleData
+        {
+            Value = 50,
+            Label = "Interest",
+            Color = "rgba(220, 0, 0, 1)",
+        },
+        new SimpleData
+        {
+            Value = 100,
+            Label = "Interest",
+            Color = "rgba(0, 220, 0, 1)"
+        }
+    });
+
+    var barChart = new LineChart();
     barChart.ComplexData.Labels.AddRange(new[] { "January", "February", "March", "April", "May", "June", "July" });
     barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
                            {
@@ -32,3 +50,6 @@
 
 <canvas id="myCanvas" width="400" height="400"></canvas>
 @Html.CreateChart("myCanvas", barChart)
+
+<canvas id="otherCanvas" width="400" height="400"></canvas>
+@Html.CreateChart("otherCanvas", pieChart)
