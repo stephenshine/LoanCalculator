@@ -51,17 +51,6 @@ namespace LoanCalculator.Models
         {
             return OutstandingBalance * MonthylyInterestRate;
         }
-
-        public decimal CalculateMonthlyRepayment()
-        {
-            decimal payment = 0;
-            decimal power = (decimal)Math.Pow((double)(1 + MonthylyInterestRate), (TermInMonths * -1));
-            decimal denominator = 1 - power;
-            decimal numerator = Amount * MonthylyInterestRate;
-            payment = numerator / denominator;
-
-            return payment;
-        }
         #endregion private methods
 
         public void RepayLoan()
@@ -100,5 +89,15 @@ namespace LoanCalculator.Models
             CalculateTotalAmountRepid();
         }
 
+        public decimal CalculateMonthlyRepayment()
+        {
+            decimal payment = 0;
+            decimal power = (decimal)Math.Pow((double)(1 + MonthylyInterestRate), (TermInMonths * -1));
+            decimal denominator = 1 - power;
+            decimal numerator = Amount * MonthylyInterestRate;
+            payment = numerator / denominator;
+
+            return payment;
+        }
     }
 }

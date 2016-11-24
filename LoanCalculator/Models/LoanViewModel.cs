@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using Chart.Mvc.ComplexChart;
 using Chart.Mvc.SimpleChart;
-using Chart.Mvc.Extensions;
 
 namespace LoanCalculator.Models
 {
@@ -25,7 +24,7 @@ namespace LoanCalculator.Models
 
         public PieChart Pie { get { return CreatePieChart(); } }
 
-        public PieChart CreatePieChart()
+        private PieChart CreatePieChart()
         {
             PieChart pieChart = new PieChart();
             SimpleData interest = new SimpleData()
