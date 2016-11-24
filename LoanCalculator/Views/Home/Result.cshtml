@@ -3,26 +3,6 @@
 @using Chart.Mvc.SimpleChart;
 @using Chart.Mvc.Extensions
 
-@{
-
-    var pieChart = new PieChart();
-    pieChart.Data.AddRange(new List<SimpleData>
-    {
-        new SimpleData
-        {
-            Value = (double)Math.Round(Model.TotalInterest, 2),
-            Label = "Interest",
-            Color = "rgba(220, 0, 0, 0.5)",
-        },
-        new SimpleData
-        {
-            Value = (double)Math.Round(Model.Amount, 2),
-            Label = "Capital",
-            Color = "rgba(0, 220, 0, 0.5)"
-        }
-    });
-}
-
 <div class="row">
     <h2>Information about loan</h2>
     <div class="col-md-4">
@@ -58,4 +38,4 @@
     </div>
 }
 
-@Html.CreateChart("results", pieChart)
+@Html.CreateChart("results", Model.Pie)
