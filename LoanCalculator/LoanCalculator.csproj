@@ -134,6 +134,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Loan.cs" />
+    <Compile Include="Models\LoanChart.cs" />
     <Compile Include="Models\LoanViewModel.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
