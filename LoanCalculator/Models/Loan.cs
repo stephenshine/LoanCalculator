@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace LoanCalculator.Models
 {
@@ -12,6 +13,7 @@ namespace LoanCalculator.Models
         #region inputs
         public decimal Amount { get; set; }
         public decimal APR { get; set; }
+        [Display(Name = "Term in months")]
         public int TermInMonths { get; set; }
         #endregion inputs
 
