@@ -52,7 +52,7 @@ namespace LoanCalculator.Models
             return OutstandingBalance * MonthylyInterestRate;
         }
 
-        private void CalculateMonthlyRepayment()
+        public decimal CalculateMonthlyRepayment()
         {
             decimal payment = 0;
             decimal power = (decimal)Math.Pow((double)(1 + MonthylyInterestRate), (TermInMonths * -1));
@@ -60,7 +60,7 @@ namespace LoanCalculator.Models
             decimal numerator = Amount * MonthylyInterestRate;
             payment = numerator / denominator;
 
-            MonthlyRepayment = Math.Round(payment, 2);
+            return payment;
         }
         #endregion private methods
 
@@ -69,7 +69,7 @@ namespace LoanCalculator.Models
             List<Transaction> transactions = new List<Transaction>();
             decimal interest = 0;
             OutstandingBalance = Amount;
-            CalculateMonthlyRepayment();
+            MonthlyRepayment = CalculateMonthlyRepayment();
 
             for (int i = 1; i <= TermInMonths; i++)
             {

@@ -1,4 +1,4 @@
-﻿@model LoanCalculator.Models.Loan
+﻿@model LoanCalculator.Models.LoanViewModel
 @using Chart.Mvc.ComplexChart;
 @using Chart.Mvc.SimpleChart;
 @using Chart.Mvc.Extensions
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-@if (Model.APR != 0)
+@if (Model.MonthlyRepayment != 0)
 {
     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#statement">Show transactions</button>
     <div id="statement" class="collapse">
