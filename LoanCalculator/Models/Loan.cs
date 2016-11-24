@@ -25,32 +25,12 @@ namespace LoanCalculator.Models
 
         public decimal MonthlyRepayment { get; set; }
         public List<Transaction> Transactions { get; set; }
-        public decimal TotalInterest { get { return CalculateTotalInterest(); } }
-        public decimal TotalRepaid { get { return CalculateTotalAmountRepid(); } }
+        public decimal TotalInterest { get { return Transactions.Sum(t => t.Debit); } }
+        public decimal TotalRepaid { get { return Transactions.Sum(x => x.Credit); } }
         private decimal OutstandingBalance { get; set; }
         private decimal MonthylyInterestRate { get { return (APR / 12) / 100; } }
 
         #region private methods
-        private decimal CalculateTotalInterest()
-        {
-            decimal result = 0;
-            foreach(Transaction t in Transactions)
-            {
-                result += t.Debit;
-            }
-            return result;
-        }
-
-        private decimal CalculateTotalAmountRepid()
-        {
-            decimal result = 0;
-            foreach(Transaction t in Transactions)
-            {
-                result += t.Credit;
-            }
-            return result;
-        }
-
         private decimal CalculateMonthlyInterest()
         {
             return OutstandingBalance * MonthylyInterestRate;
@@ -89,8 +69,6 @@ namespace LoanCalculator.Models
             }
 
             Transactions = transactions;
-            CalculateTotalInterest();
-            CalculateTotalAmountRepid();
         }
 
         public decimal CalculateMonthlyRepayment()
