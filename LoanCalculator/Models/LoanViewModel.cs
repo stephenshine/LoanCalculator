@@ -17,7 +17,7 @@ namespace LoanCalculator.Models
         public Loan Loan { get; set; }
 
         public decimal Amount { get { return Loan.Amount; } }
-        public decimal MonthlyRepayment { get { return Loan.CalculateMonthlyRepayment(); } }
+        public decimal MonthlyRepayment { get { return Loan.MonthlyRepayment; } }
         public decimal TotalInterest { get { return Loan.TotalInterest; } }
         public decimal TotalRepaid { get { return Loan.TotalRepaid; } }
         public List<Transaction> Transactions { get { return Loan.Transactions; } }
