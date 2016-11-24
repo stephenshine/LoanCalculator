@@ -7,17 +7,14 @@ using Chart.Mvc.SimpleChart;
 
 namespace LoanCalculator.Models
 {
+    // This class is just for displaying data on the view
     public class LoanViewModel
     {
+        // set to private because only data within objects needs to be exposed
         private Loan Loan { get; set; }
         private LoanChart LoanChart { get; set; }
 
-        public LoanViewModel(Loan loan)
-        {
-            Loan = loan;
-            LoanChart = new LoanChart(Loan);
-        }
-
+        // read only properties get information from private objects
         public decimal Amount { get { return Loan.Amount; } }
         public decimal MonthlyRepayment { get { return Loan.MonthlyRepayment; } }
         public decimal TotalInterest { get { return Loan.TotalInterest; } }
@@ -25,5 +22,12 @@ namespace LoanCalculator.Models
         public List<Transaction> Transactions { get { return Loan.Transactions; } }
         public PieChart Pie { get { return LoanChart.CreatePieChart(); } }
 
+        // constructor sets private objects
+        public LoanViewModel(Loan loan)
+        {
+            Loan = loan;
+            loan.RepayLoan();
+            LoanChart = new LoanChart(Loan);
+        }
     }
 }
