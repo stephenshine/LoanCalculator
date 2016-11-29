@@ -18,8 +18,10 @@ namespace LoanCalculator.Controllers
         // Modelbinding extracts values from loan passed to method
         public PartialViewResult Result(decimal Amount = 1000, decimal APR = 5, int TermInMonths = 12)
         {
+            Loan loan = new Loan(Amount, APR, TermInMonths);
             // LoanViewModel contains information to display about loan and chart
-            LoanViewModel model = new LoanViewModel(new Loan(Amount, APR, TermInMonths));          
+            LoanViewModel model = new LoanViewModel(loan);
+            
             return PartialView(model);
         }
 

@@ -12,6 +12,7 @@ namespace LoanCalculator.Models
 
         #region inputs
         public decimal Amount { get; set; }
+        [Required(ErrorMessage = "You must type in an APR")]
         public decimal APR { get; set; }
         [Display(Name = "Term in months")]
         public int TermInMonths { get; set; }
@@ -27,6 +28,7 @@ namespace LoanCalculator.Models
         private decimal OutstandingBalance { get; set; }
         private decimal MonthylyInterestRate { get { return (APR / 12) / 100; } }
 
+        public Loan() { }
         public Loan(decimal amount, decimal apr, int term)
         {
             Amount = amount;
