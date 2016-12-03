@@ -9,6 +9,12 @@ namespace LoanCalculator.Controllers
 {
     public class HomeController : Controller
     {
+        public HomeController(Loan loan)
+        {
+            Loan = loan;
+        }
+
+        private Loan Loan = new Loan();
 
         public ActionResult Index()
         {
@@ -16,7 +22,7 @@ namespace LoanCalculator.Controllers
         }
 
         // Modelbinding extracts values from loan passed to method
-        public PartialViewResult Result(decimal Amount = 1000, decimal APR = 5, int TermInMonths = 12)
+        public PartialViewResult Result(decimal Amount = 0, decimal APR = 0, int TermInMonths = 0)
         {
             Loan loan = new Loan(Amount, APR, TermInMonths);
             // LoanViewModel contains information to display about loan and chart
@@ -24,6 +30,8 @@ namespace LoanCalculator.Controllers
             
             return PartialView(model);
         }
+
+
 
     }
 }

@@ -10,13 +10,11 @@ namespace LoanCalculator.Models
     public class Loan
     {
 
-        #region inputs
         public decimal Amount { get; set; }
         [Required(ErrorMessage = "You must type in an APR")]
         public decimal APR { get; set; }
         [Display(Name = "Term in months")]
         public int TermInMonths { get; set; }
-        #endregion inputs
 
         public List<Transaction> Transactions { get; set; }
 
@@ -81,7 +79,6 @@ namespace LoanCalculator.Models
             Transactions = transactions;
         }
 
-        #region private methods
         private decimal CalculateMonthlyInterest()
         {
             return Math.Round(OutstandingBalance * MonthylyInterestRate, 2);
@@ -97,6 +94,5 @@ namespace LoanCalculator.Models
 
             return Math.Round(payment, 2);
         }
-        #endregion private methods
     }
 }
