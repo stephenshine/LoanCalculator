@@ -37,24 +37,32 @@ namespace LoanCalculator.Controllers
                 decimal interest = 0;
                 decimal repayment = MonthlyRepayment;
                 decimal OutstandingBalance = Amount;
+                string[] OpeningBalances = new string[TermInMonths];
+                string[] Debits = new string[TermInMonths];
+                string[] Credits = new string[TermInMonths];
+                string[] ClosingBalances = new string[TermInMonths];
 
-                for (int i = 1; i <= TermInMonths; i++)
+                for (int i = 0; i < TermInMonths; i++)
                 {
-                    Model.OpeningBalances.Add(OutstandingBalance.ToString("c"));
+                    OpeningBalances[i] = OutstandingBalance.ToString("c");
 
                     interest = CalculateMonthlyInterest(OutstandingBalance, MonthlyInterestRate);
                     OutstandingBalance += interest;
-                    Model.Debits.Add(interest);
+                    Debits[i] = interest.ToString("c");
 
-                    if (i == TermInMonths)
+                    if (i == (TermInMonths-1))
                     {
                         repayment = OutstandingBalance;
                     }
                     OutstandingBalance -= repayment;
-                    Model.Credits.Add(repayment);
+                    Credits[i] = repayment.ToString("c");
 
-                    Model.ClosingBalances.Add(OutstandingBalance);
+                    ClosingBalances[i] = OutstandingBalance.ToString("c");
                 }
+                ViewBag.OpeningBalances = OpeningBalances;
+                ViewBag.Debits = Debits;
+                ViewBag.Credits = Credits;
+                ViewBag.ClosingBalances = ClosingBalances;
             }
 
             return PartialView(Model);

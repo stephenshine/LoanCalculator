@@ -21,8 +21,6 @@ namespace LoanCalculator.Tests
 
             // Assert
             Assert.IsNotNull(result.Model);
-            Assert.AreEqual(typeof(LoanViewModel), result.Model);
-
         }
     }
 }

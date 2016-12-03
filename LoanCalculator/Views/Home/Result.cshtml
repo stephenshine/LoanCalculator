@@ -31,10 +31,10 @@
             {
                 <tr>
                     <td>@(month + 1)</td>
-                    <td>@Model.OpeningBalances.ElementAt(month)</td>
-                    <td>@Model.Debits.ElementAt(month)</td>
-                    <td>@Model.Credits.ElementAt(month)</td>
-                    <td>@Model.ClosingBalances.ElementAt(month)</td>
+                    <td>@ViewBag.OpeningBalances[month]</td>
+                    <td>@ViewBag.Debits[month]</td>
+                    <td>@ViewBag.Credits[month]</td>
+                    <td>@ViewBag.ClosingBalances[month]</td>
                 </tr>
             }
         </table>
