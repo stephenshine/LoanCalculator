@@ -1,21 +1,21 @@
-﻿@model LoanCalculator.Models.LoanViewModel
+﻿@model LoanCalculator.Models.Loan
 @using Chart.Mvc.Extensions
 
-<div class="row">
-    <h2>Information about loan</h2>
-    <div class="col-sm-4">
-        <h3>Monthly repayment: @Model.MonthlyRepayment.ToString("c")</h3>
-    </div>
-    <div class="col-sm-4">
-        <h3>Total interest: </h3>
-    </div>
-    <div class="col-sm-4">
-        <h3>Total amount to repay: </h3>
-    </div>
-</div>
-
-@if (Model.MonthlyRepayment != 0)
+@if (ViewBag.ShowResults)
 {
+    <div class="row">
+        <h2>Information about loan</h2>
+        <div class="col-sm-4">
+            <h3>Monthly repayment: @ViewBag.MonthlyRepayment.ToString("c")</h3>
+        </div>
+        <div class="col-sm-4">
+            <h3>Total interest: @ViewBag.TotalInterest.ToString("c")</h3>
+        </div>
+        <div class="col-sm-4">
+            <h3>Total amount to repay: @ViewBag.TotalRepaid.ToString("c")</h3>
+        </div>
+    </div>
+
     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#statement">Show transactions</button>
     <div id="statement" class="collapse">
         <h2>Transactions</h2>
@@ -31,10 +31,10 @@
             {
                 <tr>
                     <td>@(month + 1)</td>
-                    <td>@ViewBag.OpeningBalances[month]</td>
-                    <td>@ViewBag.Debits[month]</td>
-                    <td>@ViewBag.Credits[month]</td>
-                    <td>@ViewBag.ClosingBalances[month]</td>
+                    <td>@ViewBag.OpeningBalances[month].ToString("c")</td>
+                    <td>@ViewBag.Debits[month].ToString("c")</td>
+                    <td>@ViewBag.Credits[month].ToString("c")</td>
+                    <td>@ViewBag.ClosingBalances[month].ToString("c")</td>
                 </tr>
             }
         </table>

@@ -136,8 +136,6 @@
     </Compile>
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\LoanChart.cs" />
-    <Compile Include="Models\LoanViewModel.cs" />
-    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +144,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_Transaction.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
