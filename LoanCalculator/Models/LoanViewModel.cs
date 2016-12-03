@@ -11,11 +11,11 @@ namespace LoanCalculator.Models
     public class LoanViewModel
     {
    
+        public int TermInMonths { get; set; }
         public decimal MonthlyRepayment { get; set; }
         public decimal TotalInterest { get; set; }
         public decimal TotalRepaid { get; set; }
 
-        public List<int> StatementMonths = new List<int>();
         public List<string> OpeningBalances = new List<string>();
         public List<decimal> Debits = new List<decimal>();
         public List<decimal> Credits = new List<decimal>();

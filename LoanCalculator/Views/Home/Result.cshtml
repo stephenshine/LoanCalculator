@@ -27,14 +27,14 @@
                 <th>Credit</th>
                 <th>Closing balance</th>
             </tr>
-            @foreach (var month in Model.StatementMonths)
+            @for(int month = 0; month < Model.TermInMonths; month++)
             {
                 <tr>
-                    <td>@month</td>
-                    <td>@Model.OpeningBalances.ElementAt(month-1)</td>
-                    <td>@Model.Debits.ElementAt(month-1)</td>
-                    <td>@Model.Credits.ElementAt(month - 1)</td>
-                    <td>@Model.ClosingBalances.ElementAt(month - 1)</td>
+                    <td>@(month + 1)</td>
+                    <td>@Model.OpeningBalances.ElementAt(month)</td>
+                    <td>@Model.Debits.ElementAt(month)</td>
+                    <td>@Model.Credits.ElementAt(month)</td>
+                    <td>@Model.ClosingBalances.ElementAt(month)</td>
                 </tr>
             }
         </table>

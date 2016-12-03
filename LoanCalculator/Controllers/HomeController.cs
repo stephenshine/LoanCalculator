@@ -34,6 +34,7 @@ namespace LoanCalculator.Controllers
 
             if (APR != 0)
             {
+                Model.TermInMonths = TermInMonths;
                 MonthlyRepayment = CalculateMonthlyRepayment(Amount, MonthlyInterestRate, TermInMonths);
                 Model.MonthlyRepayment = MonthlyRepayment;
                 decimal interest = 0;
@@ -42,7 +43,6 @@ namespace LoanCalculator.Controllers
 
                 for (int i = 1; i <= TermInMonths; i++)
                 {
-                    Model.StatementMonths.Add(i);
                     Model.OpeningBalances.Add(OutstandingBalance.ToString("c"));
 
                     interest = CalculateMonthlyInterest(OutstandingBalance, MonthlyInterestRate);
