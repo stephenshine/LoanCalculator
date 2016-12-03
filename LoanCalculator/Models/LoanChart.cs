@@ -25,7 +25,7 @@ namespace LoanCalculator.Models
             // add interest from loan to chart data
             SimpleData interest = new SimpleData()
             {
-                Value = (double)Math.Round(Loan.TotalInterest, 2),
+                //Value = (double)Math.Round(Loan.TotalInterest, 2),
                 Label = "Interest",
                 Color = "rgba(220, 0, 0, 0.5)",
             };

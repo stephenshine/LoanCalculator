@@ -25,14 +25,11 @@ namespace LoanCalculator.Controllers
         // Modelbinding extracts values from loan passed to method
         public PartialViewResult Result(decimal Amount = 0, decimal APR = 0, int TermInMonths = 0)
         {
-            //Loan.Amount = Amount;
-            //Loan.APR = APR;
-            //Loan.TermInMonths = TermInMonths;
             LoanViewModel Model = new LoanViewModel();
             decimal MonthlyRepayment = 0;
             decimal MonthlyInterestRate = (APR / 12) / 100;
 
-            if (APR != 0)
+            if (Amount != 0 && APR != 0 && TermInMonths != 0)
             {
                 Model.TermInMonths = TermInMonths;
                 MonthlyRepayment = CalculateMonthlyRepayment(Amount, MonthlyInterestRate, TermInMonths);
