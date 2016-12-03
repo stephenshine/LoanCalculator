@@ -14,8 +14,11 @@ namespace LoanCalculator.Models
         public decimal MonthlyRepayment { get; set; }
         public decimal TotalInterest { get; set; }
         public decimal TotalRepaid { get; set; }
-        public List<List<decimal>> Transactions = new List<List<decimal>>();
+
         public List<int> StatementMonths = new List<int>();
+        public List<string> OpeningBalances = new List<string>();
         public List<decimal> Debits = new List<decimal>();
+        public List<decimal> Credits = new List<decimal>();
+        public List<decimal> ClosingBalances = new List<decimal>();
     }
 }

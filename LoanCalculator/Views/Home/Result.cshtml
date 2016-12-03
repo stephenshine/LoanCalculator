@@ -31,7 +31,10 @@
             {
                 <tr>
                     <td>@month</td>
+                    <td>@Model.OpeningBalances.ElementAt(month-1)</td>
                     <td>@Model.Debits.ElementAt(month-1)</td>
+                    <td>@Model.Credits.ElementAt(month - 1)</td>
+                    <td>@Model.ClosingBalances.ElementAt(month - 1)</td>
                 </tr>
             }
         </table>

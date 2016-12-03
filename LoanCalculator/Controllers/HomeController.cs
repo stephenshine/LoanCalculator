@@ -31,11 +31,6 @@ namespace LoanCalculator.Controllers
             LoanViewModel Model = new LoanViewModel();
             decimal MonthlyRepayment = 0;
             decimal MonthlyInterestRate = (APR / 12) / 100;
-            List<int> StatementMonths = new List<int>();
-            List<decimal> OutstandingBalances = new List<decimal>();
-            List<decimal> Debits = new List<decimal>();
-            List<decimal> Credits = new List<decimal>();
-            List<decimal> ClosingBalances = new List<decimal>();
 
             if (APR != 0)
             {
@@ -47,31 +42,23 @@ namespace LoanCalculator.Controllers
 
                 for (int i = 1; i <= TermInMonths; i++)
                 {
-                    StatementMonths.Add(i);
-                    OutstandingBalances.Add(OutstandingBalance);
+                    Model.StatementMonths.Add(i);
+                    Model.OpeningBalances.Add(OutstandingBalance.ToString("c"));
 
                     interest = CalculateMonthlyInterest(OutstandingBalance, MonthlyInterestRate);
                     OutstandingBalance += interest;
-                    Debits.Add(interest);
+                    Model.Debits.Add(interest);
 
                     if (i == TermInMonths)
                     {
                         repayment = OutstandingBalance;
                     }
                     OutstandingBalance -= repayment;
-                    Credits.Add(repayment);
+                    Model.Credits.Add(repayment);
 
-                    ClosingBalances.Add(OutstandingBalance);
+                    Model.ClosingBalances.Add(OutstandingBalance);
                 }
-                Model.StatementMonths = StatementMonths;
-                Model.Debits = Debits;
-                Model.Transactions.Add(OutstandingBalances);
-                Model.Transactions.Add(Debits);
-                Model.Transactions.Add(Credits);
-                Model.Transactions.Add(ClosingBalances);
             }
-
-            ViewBag.Debits = Debits;
 
             return PartialView(Model);
         }
