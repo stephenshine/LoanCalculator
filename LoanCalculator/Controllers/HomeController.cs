@@ -28,8 +28,10 @@ namespace LoanCalculator.Controllers
             //Loan.Amount = Amount;
             //Loan.APR = APR;
             //Loan.TermInMonths = TermInMonths;
+            LoanViewModel Model = new LoanViewModel();
             decimal MonthlyRepayment = 0;
             decimal MonthlyInterestRate = (APR / 12) / 100;
+            List<int> StatementMonths = new List<int>();
             List<decimal> OutstandingBalances = new List<decimal>();
             List<decimal> Debits = new List<decimal>();
             List<decimal> Credits = new List<decimal>();
@@ -38,12 +40,14 @@ namespace LoanCalculator.Controllers
             if (APR != 0)
             {
                 MonthlyRepayment = CalculateMonthlyRepayment(Amount, MonthlyInterestRate, TermInMonths);
+                Model.MonthlyRepayment = MonthlyRepayment;
                 decimal interest = 0;
                 decimal repayment = MonthlyRepayment;
                 decimal OutstandingBalance = Amount;
 
                 for (int i = 1; i <= TermInMonths; i++)
                 {
+                    StatementMonths.Add(i);
                     OutstandingBalances.Add(OutstandingBalance);
 
                     interest = CalculateMonthlyInterest(OutstandingBalance, MonthlyInterestRate);
@@ -59,12 +63,17 @@ namespace LoanCalculator.Controllers
 
                     ClosingBalances.Add(OutstandingBalance);
                 }
+                Model.StatementMonths = StatementMonths;
+                Model.Debits = Debits;
+                Model.Transactions.Add(OutstandingBalances);
+                Model.Transactions.Add(Debits);
+                Model.Transactions.Add(Credits);
+                Model.Transactions.Add(ClosingBalances);
             }
 
-            ViewBag.MonthlyRepayment = MonthlyRepayment;
             ViewBag.Debits = Debits;
-           
-            return PartialView(Loan);
+
+            return PartialView(Model);
         }
 
         private decimal CalculateMonthlyInterest(decimal Balance, decimal InterestRate)
