@@ -4,6 +4,11 @@
 
 @ViewBag.MonthlyRepayment
 
+@foreach(var d in ViewBag.Debits)
+{
+    <p>@d</p>
+}
+
 @*<div class="row">
     <h2>Information about loan</h2>
     <div class="col-sm-4">

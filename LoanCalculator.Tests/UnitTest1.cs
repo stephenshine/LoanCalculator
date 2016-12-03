@@ -17,7 +17,7 @@ namespace LoanCalculator.Tests
             HomeController target = new HomeController(loan);
 
             // Act
-            PartialViewResult result = target.Result(loan.Amount, loan.APR, loan.TermInMonths);
+            PartialViewResult result = target.Result(loan);
 
             // Assert
             Assert.IsNotNull(result.Model);
