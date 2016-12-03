@@ -1,39 +1,40 @@
-﻿@model LoanCalculator.Models.LoanViewModel
+﻿@model LoanCalculator.Models.Loan
 @using Chart.Mvc.Extensions
 
-@if (Model.MonthlyRepayment != 0)
-{
-    <div class="row">
-        <h2>Information about loan</h2>
-        <div class="col-sm-4">
-            <h3>Monthly repayment: @Model.MonthlyRepayment.ToString("c")</h3>
-        </div>
-        <div class="col-sm-4">
-            <h3>Total interest: @Model.TotalInterest.ToString("c")</h3>
-        </div>
-        <div class="col-sm-4">
-            <h3>Total amount to repay: @Model.TotalRepaid.ToString("c")</h3>
-        </div>
+
+@ViewBag.MonthlyRepayment
+
+@*<div class="row">
+    <h2>Information about loan</h2>
+    <div class="col-sm-4">
+        <h3>Monthly repayment: @Model.MonthlyRepayment.ToString("c")</h3>
     </div>
-
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#statement">Show transactions</button>
-    <div id="statement" class="collapse">
-        <h2>Transactions</h2>
-        <table class="table table-striped">
-            <tr>
-                <th>Month</th>
-                <th>Starting balance</th>
-                <th>Debit</th>
-                <th>Credit</th>
-                <th>Closing balance</th>
-            </tr>
-
-            @foreach (var transaction in Model.Transactions)
-            {
-                Html.RenderPartial("_Transaction", transaction);
-            }
-        </table>
+    <div class="col-sm-4">
+        <h3>Total interest: @Model.TotalInterest.ToString("c")</h3>
     </div>
-}
+    <div class="col-sm-4">
+        <h3>Total amount to repay: @Model.TotalRepaid.ToString("c")</h3>
+    </div>
+</div>
 
-@Html.CreateChart("results", Model.Pie)
+<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#statement">Show transactions</button>
+<div id="statement" class="collapse">
+    <h2>Transactions</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Month</th>
+            <th>Starting balance</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>Closing balance</th>
+        </tr>
+
+        @foreach (var transaction in Model.Transactions)
+        {
+            Html.RenderPartial("_Transaction", transaction);
+        }
+    </table>
+</div>
+
+
+@Html.CreateChart("results", Model.Pie)*@

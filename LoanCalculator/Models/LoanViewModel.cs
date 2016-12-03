@@ -16,7 +16,7 @@ namespace LoanCalculator.Models
 
         // read only properties get information from private objects
         public decimal Amount { get { return Loan.Amount; } }
-        public decimal MonthlyRepayment { get { return Loan.MonthlyRepayment; } }
+        //public decimal MonthlyRepayment { get { return Loan.MonthlyRepayment; } }
         public decimal TotalInterest { get { return Loan.TotalInterest; } }
         public decimal TotalRepaid { get { return Loan.TotalRepaid; } }
         public List<Transaction> Transactions { get { return Loan.Transactions; } }
@@ -26,7 +26,7 @@ namespace LoanCalculator.Models
         public LoanViewModel(Loan loan)
         {
             Loan = loan;
-            loan.RepayLoan();
+            //loan.RepayLoan();
             LoanChart = new LoanChart(Loan);
         }
     }
