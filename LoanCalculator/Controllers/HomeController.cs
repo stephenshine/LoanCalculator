@@ -26,28 +26,27 @@ namespace LoanCalculator.Controllers
         public PartialViewResult Result(Loan model)
         {
             bool ShowResults = false;
-            LoanResults result = new LoanResults();
+            LoanResults viewModel = new LoanResults();
             if (ModelState.IsValid)
             {
-                result.TermInMonths = model.TermInMonths;
+                viewModel.TermInMonths = model.TermInMonths;
                 decimal MonthlyInterestRate = (model.APR / 12) / 100;
-                decimal MonthlyRepayment = CalculateMonthlyRepayment(model.Amount, MonthlyInterestRate, model.TermInMonths);
-                decimal Repayment = MonthlyRepayment;
-                ViewBag.MonthlyRepayment = MonthlyRepayment;
+                viewModel.MonthlyRepayment = CalculateMonthlyRepayment(model.Amount, MonthlyInterestRate, model.TermInMonths);
+                decimal Repayment = viewModel.MonthlyRepayment;
 
                 decimal OutstandingBalance = model.Amount;
                 decimal Interest = 0;
                 decimal TotalInterest = 0;
                 decimal TotalRepaid = 0;
 
-                decimal[] OpeningBalances = new decimal[model.TermInMonths];
+                viewModel.OpeningBalances = new decimal[model.TermInMonths];
                 decimal[] Debits = new decimal[model.TermInMonths];
                 decimal[] Credits = new decimal[model.TermInMonths];
                 decimal[] ClosingBalances = new decimal[model.TermInMonths];
 
                 for (int i = 0; i < model.TermInMonths; i++)
                 {
-                    OpeningBalances[i] = OutstandingBalance;
+                    viewModel.OpeningBalances[i] = OutstandingBalance;
 
                     Interest = Math.Round(OutstandingBalance * MonthlyInterestRate, 2);
                     OutstandingBalance += Interest;
@@ -68,7 +67,6 @@ namespace LoanCalculator.Controllers
 
                 ViewBag.TotalInterest = TotalInterest;
                 ViewBag.TotalRepaid = TotalRepaid;
-                ViewBag.OpeningBalances = OpeningBalances;
                 ViewBag.Debits = Debits;
                 ViewBag.Credits = Credits;
                 ViewBag.ClosingBalances = ClosingBalances;
@@ -89,11 +87,11 @@ namespace LoanCalculator.Controllers
                         Color = "rgba(0, 220, 0, 0.5)"
                     }
                 });
-                result.pieChart = pieChart;
+                viewModel.pieChart = pieChart;
             }
             ViewBag.ShowResults = ShowResults;
 
-            return PartialView(result);
+            return PartialView(viewModel);
         }
 
         private decimal CalculateMonthlyRepayment(decimal Amount, decimal MonthlyInterestRate, int TermInMonths)  

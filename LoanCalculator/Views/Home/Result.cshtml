@@ -6,7 +6,7 @@
     <div class="row">
         <h2>Information about loan</h2>
         <div class="col-sm-4">
-            <h3>Monthly repayment: @ViewBag.MonthlyRepayment.ToString("c")</h3>
+            <h3>Monthly repayment: @Model.MonthlyRepayment.ToString("c")</h3>
         </div>
         <div class="col-sm-4">
             <h3>Total interest: @ViewBag.TotalInterest.ToString("c")</h3>
@@ -27,11 +27,11 @@
                 <th>Credit</th>
                 <th>Closing balance</th>
             </tr>
-            @for(int month = 0; month < Model.TermInMonths; month++)
+            @for(int month = 0; month < Model.TermInMonths ; month++)
             {
                 <tr>
                     <td>@(month + 1)</td>
-                    <td>@ViewBag.OpeningBalances[month].ToString("c")</td>
+                    <td>@Model.OpeningBalances[month].ToString("c")</td>
                     <td>@ViewBag.Debits[month].ToString("c")</td>
                     <td>@ViewBag.Credits[month].ToString("c")</td>
                     <td>@ViewBag.ClosingBalances[month].ToString("c")</td>
