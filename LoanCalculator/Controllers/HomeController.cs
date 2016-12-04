@@ -56,16 +56,15 @@ namespace LoanCalculator.Controllers
                 }
 
                 ShowResults = true;
-                TotalInterest = viewModel.Debits.Sum();
-                ViewBag.TotalInterest = TotalInterest;
-                ViewBag.TotalRepaid = viewModel.Credits.Sum();
+                viewModel.TotalInterest = viewModel.Debits.Sum();
+                viewModel.TotalRepaid = viewModel.Credits.Sum();
 
                 PieChart pieChart = new PieChart();
                 pieChart.Data.AddRange(new List<SimpleData>
                 {
                     new SimpleData
                     {
-                        Value = (double)Math.Round(TotalInterest, 2),
+                        Value = (double)Math.Round(viewModel.TotalInterest, 2),
                         Label = "Interest",
                         Color = "rgba(220, 0, 0, 0.5)",
                     },

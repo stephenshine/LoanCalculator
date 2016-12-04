@@ -10,6 +10,8 @@ namespace LoanCalculator.Models
     {
         public int TermInMonths { get; set; }
         public decimal MonthlyRepayment { get; set; }
+        public decimal TotalInterest { get; set; }
+        public decimal TotalRepaid { get; set; }
         public decimal[] OpeningBalances { get; set; }
         public decimal[] Debits { get; set; }
         public decimal[] Credits { get; set; }

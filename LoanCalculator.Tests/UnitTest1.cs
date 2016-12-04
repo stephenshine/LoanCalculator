@@ -44,7 +44,7 @@ namespace LoanCalculator.Tests
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result.ViewData.Model, typeof(LoanResults));
             Assert.AreEqual(85.61m, resultModel.MonthlyRepayment);
-            Assert.AreEqual(27.30m, result.ViewData["TotalInterest"]);
+            Assert.AreEqual(27.30m, resultModel.TotalInterest);
             Assert.AreEqual(12, resultModel.OpeningBalances.Length);
         }
     }
