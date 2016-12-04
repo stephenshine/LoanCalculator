@@ -10,8 +10,10 @@ namespace LoanCalculator.Models
     {
         public int TermInMonths { get; set; }
         public decimal MonthlyRepayment { get; set; }
-        public decimal Repayment { get; set; }
-        public PieChart pieChart { get; set; }
         public decimal[] OpeningBalances { get; set; }
+        public decimal[] Debits { get; set; }
+        public decimal[] Credits { get; set; }
+        public decimal[] ClosingBalances { get; set; }
+        public PieChart pieChart { get; set; }
     }
 }

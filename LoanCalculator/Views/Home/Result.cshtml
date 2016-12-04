@@ -32,9 +32,9 @@
                 <tr>
                     <td>@(month + 1)</td>
                     <td>@Model.OpeningBalances[month].ToString("c")</td>
-                    <td>@ViewBag.Debits[month].ToString("c")</td>
-                    <td>@ViewBag.Credits[month].ToString("c")</td>
-                    <td>@ViewBag.ClosingBalances[month].ToString("c")</td>
+                    <td>@Model.Debits[month].ToString("c")</td>
+                    <td>@Model.Credits[month].ToString("c")</td>
+                    <td>@Model.ClosingBalances[month].ToString("c")</td>
                 </tr>
             }
         </table>
