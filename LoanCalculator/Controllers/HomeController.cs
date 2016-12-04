@@ -15,39 +15,36 @@ namespace LoanCalculator.Controllers
             Loan = loan;
         }
 
-        private Loan Loan = new Loan();
+        private Loan Loan = new Loan(0, 0, 0);
 
         public ActionResult Index()
         {
-            return View();
+            return View(Loan);
         }
 
-        // Modelbinding extracts values from loan passed to method
-        public PartialViewResult Result(decimal Amount = 0, decimal APR = 0, int TermInMonths = 0)
+        public PartialViewResult Result(Loan loan)
         {
-            Loan.Amount = Amount;
-            Loan.APR = APR;
-            Loan.TermInMonths = TermInMonths;
+            Loan = loan;
             bool ShowResults = false;
 
-            if (Amount != 0 && APR != 0 && TermInMonths != 0)
+            if (Loan.Amount != 0 && Loan.APR != 0 && Loan.TermInMonths != 0)
             {
-                decimal MonthlyInterestRate = (APR / 12) / 100;
-                decimal MonthlyRepayment = CalculateMonthlyRepayment(Amount, MonthlyInterestRate, TermInMonths);
+                decimal MonthlyInterestRate = (Loan.APR / 12) / 100;
+                decimal MonthlyRepayment = CalculateMonthlyRepayment(Loan.Amount, MonthlyInterestRate, Loan.TermInMonths);
                 decimal Repayment = MonthlyRepayment;
                 ViewBag.MonthlyRepayment = MonthlyRepayment;
 
-                decimal OutstandingBalance = Amount;
+                decimal OutstandingBalance = Loan.Amount;
                 decimal Interest = 0;
                 decimal TotalInterest = 0;
                 decimal TotalRepaid = 0;
 
-                decimal[] OpeningBalances = new decimal[TermInMonths];
-                decimal[] Debits = new decimal[TermInMonths];
-                decimal[] Credits = new decimal[TermInMonths];
-                decimal[] ClosingBalances = new decimal[TermInMonths];
+                decimal[] OpeningBalances = new decimal[Loan.TermInMonths];
+                decimal[] Debits = new decimal[Loan.TermInMonths];
+                decimal[] Credits = new decimal[Loan.TermInMonths];
+                decimal[] ClosingBalances = new decimal[Loan.TermInMonths];
 
-                for (int i = 0; i < TermInMonths; i++)
+                for (int i = 0; i < Loan.TermInMonths; i++)
                 {
                     OpeningBalances[i] = OutstandingBalance;
 
@@ -55,7 +52,7 @@ namespace LoanCalculator.Controllers
                     OutstandingBalance += Interest;
                     Debits[i] = Interest;
 
-                    if (i == (TermInMonths-1))
+                    if (i == (Loan.TermInMonths -1))
                     {
                         Repayment = OutstandingBalance;
                     }

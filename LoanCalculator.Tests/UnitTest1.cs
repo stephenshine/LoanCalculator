@@ -17,10 +17,12 @@ namespace LoanCalculator.Tests
             HomeController target = new HomeController(loan);
 
             // Act
-            PartialViewResult result = target.Result(loan.Amount, loan.APR, loan.TermInMonths);
+            PartialViewResult result = target.Result(loan);
 
             // Assert
             Assert.IsNotNull(result.Model);
+            Assert.AreEqual(85.61m, result.ViewData["MonthlyRepayment"]);
+            Assert.AreEqual(27.30m, result.ViewData["TotalInterest"]);
         }
     }
 }
