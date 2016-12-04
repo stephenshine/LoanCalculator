@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LoanCalculator.Models;
+using Chart.Mvc.SimpleChart;
 
 namespace LoanCalculator.Controllers
 {
@@ -25,9 +26,10 @@ namespace LoanCalculator.Controllers
         public PartialViewResult Result(Loan model)
         {
             bool ShowResults = false;
-
-            if(ModelState.IsValid)
+            LoanResults result = new LoanResults();
+            if (ModelState.IsValid)
             {
+                result.TermInMonths = model.TermInMonths;
                 decimal MonthlyInterestRate = (model.APR / 12) / 100;
                 decimal MonthlyRepayment = CalculateMonthlyRepayment(model.Amount, MonthlyInterestRate, model.TermInMonths);
                 decimal Repayment = MonthlyRepayment;
@@ -70,10 +72,28 @@ namespace LoanCalculator.Controllers
                 ViewBag.Debits = Debits;
                 ViewBag.Credits = Credits;
                 ViewBag.ClosingBalances = ClosingBalances;
+
+                PieChart pieChart = new PieChart();
+                pieChart.Data.AddRange(new List<SimpleData>
+                {
+                    new SimpleData
+                    {
+                        Value = (double)Math.Round(TotalInterest, 2),
+                        Label = "Interest",
+                        Color = "rgba(220, 0, 0, 0.5)",
+                    },
+                    new SimpleData()
+                    {
+                        Value = (double)Math.Round(model.Amount, 2),
+                        Label = "Capital",
+                        Color = "rgba(0, 220, 0, 0.5)"
+                    }
+                });
+                result.pieChart = pieChart;
             }
             ViewBag.ShowResults = ShowResults;
 
-            return PartialView(model);
+            return PartialView(result);
         }
 
         private decimal CalculateMonthlyRepayment(decimal Amount, decimal MonthlyInterestRate, int TermInMonths)  

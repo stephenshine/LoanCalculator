@@ -1,4 +1,4 @@
-﻿@model LoanCalculator.Models.Loan
+﻿@model LoanCalculator.Models.LoanResults
 @using Chart.Mvc.Extensions
 
 @if (ViewBag.ShowResults)
@@ -39,6 +39,5 @@
             }
         </table>
     </div>
+    @Html.CreateChart("results", Model.pieChart)
 }
-
-@*@Html.CreateChart("results", Model.Pie)*@
