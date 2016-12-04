@@ -22,12 +22,12 @@ namespace LoanCalculator.Controllers
             return View(Loan);
         }
 
-        public PartialViewResult Result(Loan loan)
+        public PartialViewResult Result(Loan model)
         {
-            Loan = loan;
+            Loan = model;
             bool ShowResults = false;
 
-            if (Loan.Amount != 0 && Loan.APR != 0 && Loan.TermInMonths != 0)
+            if(ModelState.IsValid)
             {
                 decimal MonthlyInterestRate = (Loan.APR / 12) / 100;
                 decimal MonthlyRepayment = CalculateMonthlyRepayment(Loan.Amount, MonthlyInterestRate, Loan.TermInMonths);

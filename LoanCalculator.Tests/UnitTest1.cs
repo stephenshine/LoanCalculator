@@ -24,5 +24,19 @@ namespace LoanCalculator.Tests
             Assert.AreEqual(85.61m, result.ViewData["MonthlyRepayment"]);
             Assert.AreEqual(27.30m, result.ViewData["TotalInterest"]);
         }
+
+        [TestMethod]
+        public void ModelState()
+        {
+            // Arrange
+            Loan loan = new Loan(1000, 0, 12);
+            HomeController target = new HomeController(loan);
+
+            // Act
+            PartialViewResult result = target.Result(loan);
+
+            // Assert
+            Assert.IsFalse(result.ViewData.ModelState.IsValid);
+        }
     }
 }
