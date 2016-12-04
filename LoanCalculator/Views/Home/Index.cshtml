@@ -4,7 +4,8 @@
     ViewBag.Title = "Loan Calculator";
     AjaxOptions ajaxOpts = new AjaxOptions
     {
-        UpdateTargetId = "transactions"
+        UpdateTargetId = "transactions",
+        Url = Url.Action("Result")
     };
 }
 
@@ -14,7 +15,7 @@
 
 <div class="row">
     <div class="col-sm-6">
-        @using (Ajax.BeginForm("Result", ajaxOpts))
+        @using (Ajax.BeginForm(ajaxOpts))
         {
             @Html.AntiForgeryToken()
 
