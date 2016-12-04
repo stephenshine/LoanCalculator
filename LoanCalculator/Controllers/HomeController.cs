@@ -24,27 +24,26 @@ namespace LoanCalculator.Controllers
 
         public PartialViewResult Result(Loan model)
         {
-            Loan = model;
             bool ShowResults = false;
 
             if(ModelState.IsValid)
             {
-                decimal MonthlyInterestRate = (Loan.APR / 12) / 100;
-                decimal MonthlyRepayment = CalculateMonthlyRepayment(Loan.Amount, MonthlyInterestRate, Loan.TermInMonths);
+                decimal MonthlyInterestRate = (model.APR / 12) / 100;
+                decimal MonthlyRepayment = CalculateMonthlyRepayment(model.Amount, MonthlyInterestRate, model.TermInMonths);
                 decimal Repayment = MonthlyRepayment;
                 ViewBag.MonthlyRepayment = MonthlyRepayment;
 
-                decimal OutstandingBalance = Loan.Amount;
+                decimal OutstandingBalance = model.Amount;
                 decimal Interest = 0;
                 decimal TotalInterest = 0;
                 decimal TotalRepaid = 0;
 
-                decimal[] OpeningBalances = new decimal[Loan.TermInMonths];
-                decimal[] Debits = new decimal[Loan.TermInMonths];
-                decimal[] Credits = new decimal[Loan.TermInMonths];
-                decimal[] ClosingBalances = new decimal[Loan.TermInMonths];
+                decimal[] OpeningBalances = new decimal[model.TermInMonths];
+                decimal[] Debits = new decimal[model.TermInMonths];
+                decimal[] Credits = new decimal[model.TermInMonths];
+                decimal[] ClosingBalances = new decimal[model.TermInMonths];
 
-                for (int i = 0; i < Loan.TermInMonths; i++)
+                for (int i = 0; i < model.TermInMonths; i++)
                 {
                     OpeningBalances[i] = OutstandingBalance;
 
@@ -52,7 +51,7 @@ namespace LoanCalculator.Controllers
                     OutstandingBalance += Interest;
                     Debits[i] = Interest;
 
-                    if (i == (Loan.TermInMonths -1))
+                    if (i == (model.TermInMonths -1))
                     {
                         Repayment = OutstandingBalance;
                     }
@@ -74,7 +73,7 @@ namespace LoanCalculator.Controllers
             }
             ViewBag.ShowResults = ShowResults;
 
-            return PartialView(Loan);
+            return PartialView(model);
         }
 
         private decimal CalculateMonthlyRepayment(decimal Amount, decimal MonthlyInterestRate, int TermInMonths)  

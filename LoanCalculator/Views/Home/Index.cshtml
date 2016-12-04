@@ -40,7 +40,6 @@
                     @Html.LabelFor(model => model.TermInMonths, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownListFor(m => m.TermInMonths, new SelectList(new List<int>() { 6, 12, 18, 24, 30, 36, 42, 48, 54, 60 }), new { htmlAttributes = new { @class = "form-Control" } })
-                        @Html.ValidationMessageFor(model => model.TermInMonths, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
