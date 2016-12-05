@@ -37,7 +37,7 @@ namespace LoanCalculator.Tests
             Loan loan = new Loan(1000, 5, 12);
 
             // Act
-            var result = target.Result(loan) as PartialViewResult;
+            var result = target.CalculateResults(loan) as PartialViewResult;
             var resultModel = (LoanResults) result.ViewData.Model;
 
             // Assert

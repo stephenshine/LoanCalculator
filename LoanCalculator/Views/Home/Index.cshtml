@@ -5,7 +5,7 @@
     AjaxOptions ajaxOpts = new AjaxOptions
     {
         UpdateTargetId = "transactions",
-        Url = Url.Action("Result")
+        Url = Url.Action("CalculateResults")
     };
 }
 
@@ -53,10 +53,10 @@
         }
     </div>
     <div class="col-sm-6">
-        <canvas id="results" width="300" height="300"></canvas>
+        <canvas id="chart" width="300" height="300"></canvas>
     </div>
 </div>
 
 <div id="transactions">
-    @Html.Action("Result")
+    @Html.Action("CalculateResults")
 </div>
