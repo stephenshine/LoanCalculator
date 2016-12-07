@@ -21,6 +21,6 @@ namespace LoanCalculator.Models
         public decimal[] Debits { get; set; }
         public decimal[] Credits { get; set; }
         public decimal[] ClosingBalances { get; set; }
-        public PieChart pieChart { get; set; }
+        public PieChart PieChart { get; set; }
     }
 }

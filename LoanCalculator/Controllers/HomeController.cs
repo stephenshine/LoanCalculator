@@ -25,42 +25,43 @@ namespace LoanCalculator.Controllers
             {
                 decimal MonthlyInterestRate = (loan.APR / 12) / 100;
                 decimal MonthlyRepayment = CalculateMonthlyRepayment(loan.Amount, MonthlyInterestRate, loan.TermInMonths);
-                ViewBag.MonthlyRepayment = MonthlyRepayment;
+                Model.MonthlyRepayment = MonthlyRepayment;
                 decimal Repayment = MonthlyRepayment;
 
                 decimal OutstandingBalance = loan.Amount;
                 decimal Interest = 0;
                 decimal TotalInterest = 0;
 
-                ViewBag.OpeningBalances = new decimal[loan.TermInMonths];
-                ViewBag.Debits = new decimal[loan.TermInMonths];
-                ViewBag.Credits = new decimal[loan.TermInMonths];
-                ViewBag.ClosingBalances = new decimal[loan.TermInMonths];
+                Model.OpeningBalances = new decimal[loan.TermInMonths];
+                Model.Debits = new decimal[loan.TermInMonths];
+                Model.Credits = new decimal[loan.TermInMonths];
+                Model.ClosingBalances = new decimal[loan.TermInMonths];
 
                 for (int i = 0; i < loan.TermInMonths; i++)
                 {
-                    ViewBag.OpeningBalances[i] = OutstandingBalance;
+                    Model.OpeningBalances[i] = OutstandingBalance;
 
                     Interest = Math.Round(OutstandingBalance * MonthlyInterestRate, 2);
                     OutstandingBalance += Interest;
                     TotalInterest += Interest;
-                    ViewBag.Debits[i] = Interest;
+                    Model.Debits[i] = Interest;
 
                     if (i == (loan.TermInMonths -1))
                     {
                         Repayment = OutstandingBalance;
                     }
                     OutstandingBalance -= Repayment;
-                    ViewBag.Credits[i] = Repayment;
+                    Model.Credits[i] = Repayment;
 
-                    ViewBag.ClosingBalances[i] = OutstandingBalance;
+                    Model.ClosingBalances[i] = OutstandingBalance;
                 }
 
                 ShowResults = true;
-                ViewBag.TotalInterest = TotalInterest;
-                ViewBag.TotalRepaid = loan.Amount + TotalInterest;
+                Model.TotalInterest = TotalInterest;
+                Model.TotalRepaid = loan.Amount + TotalInterest;
 
-                ViewBag.ChartData = new List<SimpleData>
+                PieChart chart = new PieChart();
+                chart.Data.AddRange(new List<SimpleData>
                 {
                     new SimpleData
                     {
@@ -73,7 +74,8 @@ namespace LoanCalculator.Controllers
                         Value = (double)Math.Round(loan.Amount, 2),
                         Label = "Capital",
                         Color = "rgba(0, 220, 0, 0.5)"
-                    }};
+                    }});
+                Model.PieChart = chart;
             }
             ViewBag.ShowResults = ShowResults;
 
