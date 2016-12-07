@@ -38,11 +38,11 @@ namespace LoanCalculator.Tests
 
             // Act
             var result = target.CalculateResults(loan) as PartialViewResult;
-            var resultModel = (LoanResults) result.ViewData.Model;
+            var resultModel = (LoanViewModel) result.ViewData.Model;
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(LoanResults));
+            Assert.IsInstanceOfType(result.ViewData.Model, typeof(LoanViewModel));
             Assert.AreEqual(85.61m, resultModel.MonthlyRepayment);
             Assert.AreEqual(27.30m, resultModel.TotalInterest);
             Assert.AreEqual(12, resultModel.OpeningBalances.Length);

@@ -6,9 +6,14 @@ using Chart.Mvc.SimpleChart;
 
 namespace LoanCalculator.Models
 {
-    public class LoanResults
+    public class LoanViewModel
     {
-        public int TermInMonths { get; set; }
+        public LoanViewModel(Loan loan)
+        {
+            Loan = loan;
+        }
+
+        public Loan Loan { get; set; }
         public decimal MonthlyRepayment { get; set; }
         public decimal TotalInterest { get; set; }
         public decimal TotalRepaid { get; set; }

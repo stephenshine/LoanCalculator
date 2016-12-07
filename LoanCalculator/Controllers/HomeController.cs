@@ -19,10 +19,10 @@ namespace LoanCalculator.Controllers
 
         public PartialViewResult CalculateResults(Loan loan)
         {
+            LoanViewModel Model = new LoanViewModel(loan);
             bool ShowResults = false;
             if (ModelState.IsValid)
             {
-                // viewModel.TermInMonths = model.TermInMonths;
                 decimal MonthlyInterestRate = (loan.APR / 12) / 100;
                 decimal MonthlyRepayment = CalculateMonthlyRepayment(loan.Amount, MonthlyInterestRate, loan.TermInMonths);
                 ViewBag.MonthlyRepayment = MonthlyRepayment;
@@ -77,7 +77,7 @@ namespace LoanCalculator.Controllers
             }
             ViewBag.ShowResults = ShowResults;
 
-            return PartialView("Results", loan);
+            return PartialView("Results", Model);
         }
 
         private decimal CalculateMonthlyRepayment(decimal Amount, decimal MonthlyInterestRate, int TermInMonths)  
