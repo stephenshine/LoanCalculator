@@ -82,6 +82,11 @@ namespace LoanCalculator.Controllers
             return PartialView("Results", Model);
         }
 
+        public ActionResult Details(LoanViewModel test)
+        {
+            return View(test);
+        }
+
         private decimal CalculateMonthlyRepayment(decimal Amount, decimal MonthlyInterestRate, int TermInMonths)  
         {
             decimal payment = 0;

@@ -17,7 +17,14 @@
         </div>
     </div>
 
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#statement">Show transactions</button>
+    <div class="row">
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#statement">Show transactions</button>
+        </div>    
+        <div class="col-sm-6">
+            @Html.ActionLink("Show detailed graph", "Details", new { test = Model.Loan })
+        </div>   
+    </div>
     <div id="statement" class="collapse">
         <h2>Transactions</h2>
         <table class="table table-striped">
