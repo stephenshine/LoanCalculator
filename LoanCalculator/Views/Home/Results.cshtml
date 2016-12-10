@@ -4,17 +4,19 @@
 
 @if (ViewBag.ShowResults)
 {
-    <div class="row">
-        <h2>Information about loan</h2>
-        <div class="col-sm-4">
-            <h3>Monthly repayment: @Model.MonthlyRepayment.ToString("c")</h3>
-        </div>
-        <div class="col-sm-4">
-            <h3>Total interest: @Model.TotalInterest.ToString("c")</h3>
-        </div>
-        <div class="col-sm-4">
-            <h3>Total amount to repay: @Model.TotalRepaid.ToString("c")</h3>
-        </div>
+    <div class="well">
+        <div class="row">
+                <h2>@Html.LabelForModel()</h2>
+                <div class="col-sm-4">
+                    <h3>@Html.LabelFor(m => m.MonthlyRepayment): £@Html.ValueFor(m => m.MonthlyRepayment)</h3>
+                </div>
+                <div class="col-sm-4">
+                    <h3>@Html.LabelFor(m => m.TotalInterest): £@Html.ValueFor(m => m.TotalInterest)</h3>
+                </div>
+                <div class="col-sm-4">
+                    <h3>@Html.LabelFor(m => m.TotalRepaid): £@Html.ValueFor(m => m.TotalRepaid)</h3>
+                </div>
+            </div>
     </div>
 
     <div class="row">
@@ -26,20 +28,20 @@
         <h2>Transactions</h2>
         <table class="table table-striped">
             <tr>
-                <th>Month</th>
-                <th>Starting balance</th>
-                <th>Debit</th>
-                <th>Credit</th>
-                <th>Closing balance</th>
+                <th>@Html.LabelFor(m => m.Loan.TermInMonths)</th>
+                <th>@Html.LabelFor(m => m.OpeningBalances)</th>
+                <th>@Html.LabelFor(m => m.Debits)</th>
+                <th>@Html.LabelFor(m => m.Credits)</th>
+                <th>@Html.LabelFor(m => m.ClosingBalances)</th>
             </tr>
             @for (int month = 0; month < Model.Loan.TermInMonths; month++)
             {
                 <tr>
                     <td>@(month + 1)</td>
-                    <td>@Model.OpeningBalances[month].ToString("c")</td>
-                    <td>@Model.Debits[month].ToString("c")</td>
-                    <td>@Model.Credits[month].ToString("c")</td>
-                    <td>@Model.ClosingBalances[month].ToString("c")</td>
+                    <td>£@Html.ValueFor(m => m.OpeningBalances[month])</td>
+                    <td>£@Html.ValueFor(m => m.Debits[month])</td>
+                    <td>£@Html.ValueFor(m => m.Credits[month])</td>
+                    <td>£@Html.ValueFor(m => m.ClosingBalances[month])</td>
                 </tr>
             }
         </table>
