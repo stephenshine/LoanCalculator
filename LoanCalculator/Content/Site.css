@@ -16,6 +16,7 @@ textarea {
     max-width: 280px;
 }
 
+/* Background image formatting */
 .background:after {
     content : "";
     display: block;
@@ -27,4 +28,8 @@ textarea {
     opacity : 0.4;
     z-index: -1;
     background-image: url("images/bg-img.jpg");
+}
+
+label {
+    font-family: 'Montserrat', sans-serif;
 }
