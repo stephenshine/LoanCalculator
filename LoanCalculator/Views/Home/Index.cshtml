@@ -52,12 +52,18 @@
                 </div>
             }
         </div>
+
         <div class="col-sm-6">
-            <canvas id="chart" width="300" height="300"></canvas>
+            <div class="container">
+                <div class="jumbotron">
+                    <canvas id="chart" width="300" height="300"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="transactions">
-        @Html.Action("CalculateResults")
+                @Html.Action("CalculateResults")
+        </div>
     </div>
-</div>
+

@@ -6,45 +6,49 @@
 {
     <div class="well">
         <div class="row">
-                <h2>@Html.LabelForModel()</h2>
-                <div class="col-sm-4">
-                    <h3>@Html.LabelFor(m => m.MonthlyRepayment): £@Html.ValueFor(m => m.MonthlyRepayment)</h3>
-                </div>
-                <div class="col-sm-4">
-                    <h3>@Html.LabelFor(m => m.TotalInterest): £@Html.ValueFor(m => m.TotalInterest)</h3>
-                </div>
-                <div class="col-sm-4">
-                    <h3>@Html.LabelFor(m => m.TotalRepaid): £@Html.ValueFor(m => m.TotalRepaid)</h3>
-                </div>
+            <h2>@Html.LabelForModel()</h2>
+            <div class="col-sm-4">
+                <h3>@Html.LabelFor(m => m.MonthlyRepayment): £@Html.ValueFor(m => m.MonthlyRepayment)</h3>
             </div>
+            <div class="col-sm-4">
+                <h3>@Html.LabelFor(m => m.TotalInterest): £@Html.ValueFor(m => m.TotalInterest)</h3>
+            </div>
+            <div class="col-sm-4">
+                <h3>@Html.LabelFor(m => m.TotalRepaid): £@Html.ValueFor(m => m.TotalRepaid)</h3>
+            </div>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-sm-12">
             <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#statement">Show transactions</button>
-        </div>    
+        </div>
     </div>
-    <div id="statement" class="collapse">
-        <h2>Transactions</h2>
-        <table class="table table-striped">
-            <tr>
-                <th>@Html.LabelFor(m => m.Loan.TermInMonths)</th>
-                <th>@Html.LabelFor(m => m.OpeningBalances)</th>
-                <th>@Html.LabelFor(m => m.Debits)</th>
-                <th>@Html.LabelFor(m => m.Credits)</th>
-                <th>@Html.LabelFor(m => m.ClosingBalances)</th>
-            </tr>
-            @for (int month = 0; month < Model.Loan.TermInMonths; month++)
-            {
-                <tr>
-                    <td>@(month + 1)</td>
-                    <td>£@Html.ValueFor(m => m.OpeningBalances[month])</td>
-                    <td>£@Html.ValueFor(m => m.Debits[month])</td>
-                    <td>£@Html.ValueFor(m => m.Credits[month])</td>
-                    <td>£@Html.ValueFor(m => m.ClosingBalances[month])</td>
-                </tr>
-            }
-        </table>
+    <div class="container">
+        <div class="jumbotron">
+            <div id="statement" class="collapse">
+                <h2>Transactions</h2>
+                <table class="table table-striped">
+                    <tr>
+                        <th>@Html.LabelFor(m => m.Loan.TermInMonths)</th>
+                        <th>@Html.LabelFor(m => m.OpeningBalances)</th>
+                        <th>@Html.LabelFor(m => m.Debits)</th>
+                        <th>@Html.LabelFor(m => m.Credits)</th>
+                        <th>@Html.LabelFor(m => m.ClosingBalances)</th>
+                    </tr>
+                    @for (int month = 0; month < Model.Loan.TermInMonths; month++)
+                    {
+                        <tr>
+                            <td>@(month + 1)</td>
+                            <td>£@Html.ValueFor(m => m.OpeningBalances[month])</td>
+                            <td>£@Html.ValueFor(m => m.Debits[month])</td>
+                            <td>£@Html.ValueFor(m => m.Credits[month])</td>
+                            <td>£@Html.ValueFor(m => m.ClosingBalances[month])</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
     </div>
     @Html.CreateChart("chart", Model.PieChart)
 }

@@ -19,7 +19,7 @@ textarea {
 /* Background image formatting */
 .background:after {
     content : "";
-    display: block;
+    display: compact;
     position: absolute;
     top: 0;
     left: 0;
@@ -28,6 +28,7 @@ textarea {
     opacity : 0.4;
     z-index: -1;
     background-image: url("images/bg-img.jpg");
+    background-repeat: repeat;
 }
 
 label {
