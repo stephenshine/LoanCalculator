@@ -17,7 +17,7 @@ textarea {
 }
 
 /* Background image formatting */
-.background:after {
+.background {
     content : "";
     display: compact;
     position: absolute;
